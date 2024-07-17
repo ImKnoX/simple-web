@@ -1,3 +1,4 @@
+
 /**
  * To insert cat data to the database
  * @param {String} Name - The Cat Alias
@@ -6,7 +7,7 @@
 async function createCat(Name, Src) {
     const newData = await Cat.create({
         name: Name,
-        src: Src
+        src: Src,
     })
     return console.log("Data has been created: ", newData.id);
 }

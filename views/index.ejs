@@ -6,8 +6,18 @@
     <title><%= title %></title>
 </head>
 <body>
-    <% data.forEach(cat => { %> 
-        <img id=<%= cat.id %> src=<%= cat.src %> alt=<%= cat.name %> />
-    <% }) %>
+    <header>
+        <h1>Cat Pictures</h1>
+    </header>
+    <main>
+        <div class="gallery">
+            <% data.forEach(cat => { %> 
+                <img id=<%= cat.id %> width="500" height="500" src=<%= cat.src %> alt=<%= cat.name %> />
+            <% }) %>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 Cat Lovers</p>
+    </footer>
 </body>
 </html>

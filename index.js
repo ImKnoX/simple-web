@@ -45,18 +45,48 @@ app.use(express.json());
 
 app.get('/', async(req, res) => {
     const cats = await Cat.findAll();
-    res.json(cats);
-    /*
     res.render('index', {
         title: 'Cat Images Generator',
-        data: jsonData.cats
+        data: cats
     });
-    */
 });
 
-app.get('/:id', async(req, res) => {
+//to get individual cat picture
+app.get('/cat/:id', async(req, res) => {
     const cat = await Cat.findByPk(req.params.id);
+    if (cat) {
+        res.json(cat);
+    } else {
+        res.status(404).json({ message: 'Meow, Cat not found' });
+    }
+});
+
+//to post cat picture
+app.post('/post', async(req, res) => {
+    const cat = await Cat.create(req.body);
     res.json(cat);
+});
+
+//to update existing cat picture
+app.put('/edit/:id', async(req, res) => {
+  const cat = await Cat.findByPk(req.params.id);
+  if (cat) {
+    await cat.update(req.body);
+    res.json(cat);
+  } else {
+    res.status(404).json({ message: 'Meow, Cat not found' });
+  }
+});
+
+//to delete existing cat picture
+app.delete('/delete/:id', async(req,res) => {
+    const cat = await Cat.findByPk(req.params.id);
+    if (cat) {
+      await cat.destroy();
+      res.json({ message: 'Meow, Cat deleted' });
+    } else {
+      res.status(404).json({ message: 'Meow, Cat not found' });
+    }
 });
 
 app.listen(port ,(error) => {
