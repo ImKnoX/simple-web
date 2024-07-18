@@ -1,15 +1,14 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const jsonData = require('./data.json');
 const { Sequelize, Model, DataTypes } = require('sequelize')
 const port = process.env.PORT || 3000;
 require('dotenv').config();
 
 //initialize the database 
 const sequelize = new Sequelize({
-    dialect: 'sqlite',
-    storage: './database.sqlite'
+    dialect: 'sqlite'
+    //storage: './database.sqlite'
 });
 
 //create the cat database model
@@ -55,7 +54,11 @@ app.get('/', async(req, res) => {
 app.get('/cat/:id', async(req, res) => {
     const cat = await Cat.findByPk(req.params.id);
     if (cat) {
-        res.json(cat);
+        //res.json(cat);
+        res.render('cats', {
+            title: `${cat.name}`,
+            data: cat
+        })
     } else {
         res.status(404).json({ message: 'Meow, Cat not found' });
     }
