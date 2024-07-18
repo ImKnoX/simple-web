@@ -11,6 +11,36 @@ header {
     padding: 20px;
     color: white;
 }
+/* Basic button styles */
+.button {
+    background-color: #3498db; /* Button background color */
+    margin-top: 15px;
+    border: none; /* No border */
+    border-radius: 25px; /* Rounded corners */
+    color: white; /* Text color */
+    padding: 12px 24px; /* Padding inside the button */
+    text-align: center; /* Center text */
+    text-decoration: none; /* No underline */
+    display: inline-block; /* Inline-block element */
+    font-size: 16px; /* Font size */
+    font-weight: bold; /* Bold text */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Shadow for 3D effect */
+    cursor: pointer; /* Pointer cursor on hover */
+}
+
+/* Hover effect */
+.button:hover {
+    background-color: #2980b9; /* Darker background on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+/* Active effect */
+.button:active {
+    background-color: #1f6391; /* Even darker background when active */
+    transform: translateY(1px); /* Slight press effect */
+}
+
 
 header h1 {
     margin: 0;

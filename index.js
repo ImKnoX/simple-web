@@ -7,8 +7,8 @@ require('dotenv').config();
 
 //initialize the database 
 const sequelize = new Sequelize({
-    dialect: 'sqlite'
-    //storage: './database.sqlite'
+    dialect: 'sqlite',
+    storage: './database.sqlite'
 });
 
 //create the cat database model
@@ -63,6 +63,10 @@ app.get('/cat/:id', async(req, res) => {
         res.status(404).json({ message: 'Meow, Cat not found' });
     }
 });
+
+app.get('/post', async(req,res) => {
+    res.render('posts', {})
+})
 
 //to post cat picture
 app.post('/post', async(req, res) => {
