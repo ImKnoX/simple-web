@@ -71,8 +71,16 @@ app.get('/post', async(req,res) => {
 //to post cat picture
 app.post('/post', async(req, res) => {
     const cat = await Cat.create(req.body);
-    res.json(cat);
+    if(cat) {
+        res.redirect('/'); //after insert new data user will be redirected to homepage
+    } else(error) => {
+        res.json(error)
+    }
 });
+
+app.get('/edit/:id', async(req, res) => {
+    res.render('updateposts', {});
+})
 
 //to update existing cat picture
 app.put('/edit/:id', async(req, res) => {
