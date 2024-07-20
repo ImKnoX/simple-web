@@ -5,6 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= title %></title>
     <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="/static/404.css">
+    <style>
+        .search-container {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 400px;
+            background-color: #fff;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+        .search-container:hover {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .search-bar {
+            border: none;
+            outline: none;
+            width: 100%;
+            padding: 10px;
+            border-radius: 50px;
+            font-size: 16px;
+        }
+        .search-button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .search-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -14,14 +51,25 @@
         onclick="window.location.href='/post'">
         Post New Cat
     </button>
+    <div class="search-container">
+        <form action="/" method="post">
+            <input type="search" name="search" class="search-bar" placeholder="Search...">
+            <button class="search-button" type="submit">Search</button>
+        </form>
+    </div>
     </header>
     <main>
         <div class="gallery">
-            <% data.forEach(cat => { %> 
+            <% if(data.length > 0) { %>
+            <% data.forEach((cat, index) => { %> 
                 <a id=<%= cat.id %> href="/cat/<%= cat.id  %>">
                 <img id=<%= cat.id %> width="500" height="500" src=<%= cat.src %> alt=<%= cat.name %> />
             </a>
             <% }) %>
+            <% } else { %>
+                <h1 class="error">404</h1>
+                <h2>Oops! Meow Cat Was Not Found</h2>
+            <% } %>
         </div>
     </main>
     <footer>

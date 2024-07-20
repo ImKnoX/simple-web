@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
-const { Sequelize, Model, DataTypes } = require('sequelize')
+const { Sequelize, Model, DataTypes, Op } = require('sequelize')
 const port = process.env.PORT || 3000;
 require('dotenv').config();
 
@@ -50,6 +50,21 @@ app.get('/', async(req, res) => {
     });
 });
 
+//filter cat by string
+app.post('/', async(req, res) => {
+    const cats = await Cat.findAll({
+        where: {
+          name: {
+            [Op.substring]: req.body.search
+          }
+        }
+      });
+      res.render('index', {
+        data: cats,
+        title: 'Cat Images Generator'
+      });
+})
+
 //to get individual cat picture
 app.get('/cat/:id', async(req, res) => {
     const cat = await Cat.findByPk(req.params.id);
@@ -79,7 +94,10 @@ app.post('/post', async(req, res) => {
 });
 
 app.get('/edit/:id', async(req, res) => {
-    res.render('updateposts', {});
+    const cat = await Cat.findByPk(req.params.id);
+    res.render('updateposts', {
+        data: cat
+    });
 })
 
 //to update existing cat picture
@@ -87,7 +105,7 @@ app.put('/edit/:id', async(req, res) => {
   const cat = await Cat.findByPk(req.params.id);
   if (cat) {
     await cat.update(req.body);
-    res.json(cat);
+    res.redirect('/')
   } else {
     res.status(404).json({ message: 'Meow, Cat not found' });
   }
